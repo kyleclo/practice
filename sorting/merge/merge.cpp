@@ -28,9 +28,7 @@ void MergeSort(int x[], int indexStart, int indexEnd){
 		MergeSort(x, indexStart, indexMiddle);
 		MergeSort(x, indexMiddle + 1, indexEnd);
 		Merge(x, indexStart, indexMiddle, indexEnd);
-
 	}
-
 }
 
 void Merge(int x[], int indexStart, int indexMiddle, int indexEnd){
@@ -75,7 +73,6 @@ void Merge(int x[], int indexStart, int indexMiddle, int indexEnd){
 	}
 
 	delete[] temp;
-
 }
 
 

@@ -21,19 +21,18 @@ int main(){
 
 void InsertionSort(int x[], int n){
 
-	for(int i = 1; i < n; i++){
+	for(int indexCandidate = 1; indexCandidate < n; indexCandidate++){
 
-		int candidate = x[i];
-		int j = i - 1;
+		int candidate = x[indexCandidate];
+		int i = indexCandidate - 1;
 
-		while(j >= 0 && x[j] > candidate){
-			x[j + 1] = x[j];
-			j--;
+		while(i >= 0 && x[i] > candidate){
+			x[i + 1] = x[i];
+			i--;
 		}
 
-		x[j + 1] = candidate;
+		x[i + 1] = candidate;
 	}
-
 }
 
 

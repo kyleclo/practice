@@ -26,12 +26,12 @@ void SelectionSort(int x[], int n){
 
 		int indexMin = i;
 
-		// find minimum
+		// find minimum among remaining values
 		for(int j = i + 1; j < n; j++){
 			if(x[j] < x[indexMin]){ indexMin = j; }
 		}
 
-		// swap positions
+		// swap minimum into index i
 		int temp = x[i];
 		x[i] = x[indexMin];
 		x[indexMin] = temp;
