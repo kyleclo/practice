@@ -19,21 +19,20 @@ int main(){
 }
 
 
-
 void SelectionSort(int x[], int n){
 
-	for(int i = 0; i < n - 1; i++){
+	for(int indexSortedEnd = 0; indexSortedEnd < n - 1; indexSortedEnd++){
 
-		int indexMin = i;
+		int indexMin = indexSortedEnd;
 
 		// find minimum among remaining values
-		for(int j = i + 1; j < n; j++){
-			if(x[j] < x[indexMin]){ indexMin = j; }
+		for(int i = indexSortedEnd + 1; i < n; i++){
+			if(x[i] < x[indexMin]){ indexMin = i; }
 		}
 
-		// swap minimum into index i
-		int temp = x[i];
-		x[i] = x[indexMin];
+		// swap minimum into Left subarray
+		int temp = x[indexSortedEnd];
+		x[indexSortedEnd] = x[indexMin];
 		x[indexMin] = temp;
 	}
 }

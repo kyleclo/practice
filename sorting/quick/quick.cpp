@@ -11,13 +11,13 @@ void PrintArray(int x[], int n);
 int main(){
 
 	int n = 6;
-	int x[] = {2, 5, 3, 6, 1, 4};
+	int x[] = {2, 5, 3, 6, 3, 4};
 	QuickSortSlow(x, 0, n - 1);
 	PrintArray(x, n);
 
 	cout << endl;
 
-	int y[] = {2, 5, 3, 6, 1, 4};
+	int y[] = {2, 5, 3, 6, 3, 4};
 	QuickSortFast(y, 0, n - 1);
 
 	PrintArray(y, n);
@@ -27,15 +27,17 @@ int main(){
 
 void QuickSortSlow(int x[], int indexStart, int indexEnd){
 
+	// length of x greater than 1
 	if(indexStart < indexEnd){
 
+		// partition
 		int pivot = x[indexEnd];
 		int indexMiddle = indexStart;
 
 		for(int i = indexStart; i < indexEnd; i++){
 
-			// move any x[i] less than pivot to the left
-			if(x[i] <= pivot){
+			// if any x[i] < pivot, then swap it into left side
+			if(x[i] < pivot){
 				int temp = x[indexMiddle];
 				x[indexMiddle] = x[i];
 				x[i] = temp;
@@ -47,6 +49,7 @@ void QuickSortSlow(int x[], int indexStart, int indexEnd){
 		x[indexEnd] = x[indexMiddle];
 		x[indexMiddle] = pivot;
 
+		// sort left/right subarrays
 		QuickSortSlow(x, indexStart, indexMiddle - 1);
 		QuickSortSlow(x, indexMiddle + 1, indexEnd);
 	}

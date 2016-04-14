@@ -22,7 +22,7 @@ int main(){
 
 void MergeSort(int x[], int indexStart, int indexEnd){
 
-	if(indexStart < indexEnd){
+	if(indexStart < indexEnd){     // if length = 1, no need to sort further
 
 		int indexMiddle = (indexEnd + indexStart) / 2;    // floors decimals by default
 		MergeSort(x, indexStart, indexMiddle);
