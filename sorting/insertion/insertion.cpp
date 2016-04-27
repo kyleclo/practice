@@ -1,44 +1,51 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
-void InsertionSort(int x[], int n);
-void PrintArray(int x[], int n);
-
+void InsertionSort(vector <int> & x);
+void PrintArray(vector <int> & x);
 
 
 int main(){
 
-	int n = 6;
-	int x[] = {2, 5, 3, 6, 1, 4};
+        int n = 6;
+        int values[] = {2, 5, 3, 6, 1, 4};
 
-	InsertionSort(x, n);
-	PrintArray(x, n);
+        vector <int> x(&values[0], &values[n]);
 
-	return 0;
+        InsertionSort(x);
+        PrintArray(x);
+
+        return 0;
 }
 
 
-void InsertionSort(int x[], int n){
+void InsertionSort(vector <int> & x){
 
-	for(int indexCandidate = 1; indexCandidate < n; indexCandidate++){
+        int n = x.size();
 
-		int candidate = x[indexCandidate];
-		int i = indexCandidate - 1;
+        for(int indexCandidate = 1; indexCandidate < n; indexCandidate++){
 
-		while(i >= 0 && x[i] > candidate){
-			x[i + 1] = x[i];
-			i--;
-		}
+                int candidate = x[indexCandidate];
+                int i = indexCandidate - 1;
 
-		x[i + 1] = candidate;
-	}
+                while(i >= 0 && x[i] > candidate){
+                        x[i + 1] = x[i];
+                        i--;
+                }
+
+                x[i + 1] = candidate;
+        }
 }
 
 
-void PrintArray(int x[], int n){
+void PrintArray(vector <int> & x){
 
-	for(int i = 0; i < n; i++){
-		cout << x[i] << " ";
-	}
+        int n = x.size();
+
+        for(int i = 0; i < n; i++){
+                cout << x[i] << " ";
+        }
 }
+
