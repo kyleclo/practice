@@ -54,7 +54,10 @@ for(int i = 0, j = 9; i < 0; i++, j--)
 ```
 
 #### Scope of loop iterators
-- In newer C++ versions, iterator variables defined in *for( ; ; )* are destroyed at the end of the loop
+- In newer C++ versions, iterator variables defined in **for( ; ; )** are destroyed at the end of the loop
+
+#### Return, break, and continue
+- **Return** exits the function, **break** exits the loop, and **continue** skips to next iteration
 
 <hr>
 
