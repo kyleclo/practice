@@ -8,18 +8,18 @@
 ```{c++}
 switch(x){
     case 1:
-        int y;
-        y = 5;
-        break;          // sidenote: don't forget to include breaks to avoid fall-through
+        int y;          // OK because declaration allowed
+        y = 5;          // OK because assignment allowed
+        break;          // avoid fall-through
     case 2:
-        y = 10;         // this is OK because y declared above
+        y = 10;         // OK because y declared above
         break;
     case 3;
-        int z = 15;     // error: can't initialize variables in cases
+        int z = 15;     // compile error: initialization not allowed
         break;
     case 4:
     {
-        int w = 15;     // this is OK because in block
+        int w = 15;     // OK because within block
         break;
     }
 }
