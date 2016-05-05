@@ -3,22 +3,6 @@
 #### Chaining if-else statements
 - Switch statements are typically more efficient than if-else chains
 
-#### Breaks
-- Avoid fall-through by including *break*s
-```{c++}
-switch(x){
-    case 1:
-        std::cout << 1 << std::endl;
-        break;
-    case 2:
-        std::cout << 2 << std::endl;
-        break;
-    default:
-        std::cout << 0 << std::endl;
-        break;
-}
-```
-
 #### Variable declaration / initialization / assignment
 - Use blocks when declaring variables in the cases
 ```{c++}
@@ -26,12 +10,12 @@ switch(x){
     case 1:
         int y;
         y = 5;
-        break;
+        break;          // sidenote: don't forget to include breaks to avoid fall-through
     case 2:
         y = 10;         // this is OK because y declared above
         break;
     case 3;
-        int z = 15;     // error; can't initialize variables in cases
+        int z = 15;     // error: can't initialize variables in cases
         break;
     case 4:
     {
