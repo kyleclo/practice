@@ -44,6 +44,20 @@ while(choice < 1 || choice > 10){
 
 <hr>
 
+## For loops
+
+#### Comma operator
+- Comma operators are typically only ever used in for-loops
+```{c++}
+for(int i = 0, j = 9; i < 0; i++, j--)
+    std::cout << i << " " << j << std::endl;
+```
+
+#### Scope of loop iterators
+- In newer C++ versions, iterator variables defined in *for( ; ; )* are destroyed at the end of the loop
+
+<hr>
+
 ## Pointers
 - When to use pointers:
     - dynamically allocate memory
