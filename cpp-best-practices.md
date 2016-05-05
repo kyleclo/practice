@@ -22,8 +22,8 @@ int* doSomething();
 
 ```{c++}
 int *intPtr(nullptr);
-if(intPtr) std::cout << "Pointer is pointing to an int variable" << endl;
-else std::cout << "Pointer is a null pointer" << endl;
+if(intPtr) std::cout << "Pointer is pointing to an int variable" << std::endl;
+else std::cout << "Pointer is a null pointer" << std::endl;
 ```
 
 - Avoid using NULL because it's a preprocessor macro that's not technically part of C++
@@ -43,7 +43,7 @@ intPtr = nullptr;
 ```{c++}
 int *intPtr = new (std::nothrow) int;       // set to nullptr if integer allocation failed
 if(!intPtr){
-    std::cout << "Could not allocate memory" << endl;
+    std::cout << "Could not allocate memory" << std::endl;
     exit(1);
 }
 ```
