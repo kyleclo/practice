@@ -1,4 +1,4 @@
-## Switch
+## Switch statements
 
 #### Chaining if-else statements
 - Switch statements are typically more efficient than if-else chains
@@ -25,6 +25,24 @@ switch(x){
 }
 ```
 
+<hr>
+
+## Do-while loops
+
+#### Usage
+- Use do-while loops over while loops when you want the loop to execute at least once
+```{c++}
+int choice;     // declared outside *do* block because need for *while* conditional
+do{
+    std::cout << "Guess a number between 1 and 10:" << std::endl;
+    std::cin >> choice;
+}
+while(choice < 1 || choice > 10){
+    std::cout << "That wasn't between 1 and 10. Try again." << std::endl;
+}
+```
+
+<hr>
 
 ## Pointers
 - When to use pointers:
