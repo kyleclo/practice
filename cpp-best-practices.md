@@ -1,3 +1,5 @@
+<!-- 
+-->
 ## Switch statements
 
 #### Chaining if-else statements
@@ -24,9 +26,14 @@ switch(x){
     }
 }
 ```
-
 <hr>
 
+
+
+
+
+<!-- 
+-->
 ## Do-while loops
 
 #### Usage
@@ -41,9 +48,14 @@ while(choice < 1 || choice > 10){
     std::cout << "That wasn't between 1 and 10. Try again." << std::endl;
 }
 ```
-
 <hr>
 
+
+
+
+
+<!-- 
+-->
 ## For loops
 
 #### Comma operator
@@ -54,13 +66,61 @@ for(int i = 0, j = 9; i < 0; i++, j--)
 ```
 
 #### Scope of loop iterators
-- In newer C++ versions, iterator variables defined in **for( ; ; )** are destroyed at the end of the loop
+- In newer C++ versions, iterator variables defined in *for()* are destroyed at the end of the loop
 
 #### Return, break, and continue
-- **Return** exits the function, **break** exits the loop, and **continue** skips to next iteration
+- *Return* exits the function, *break* exits the loop, and *continue* skips to next iteration
 
 <hr>
 
+
+
+
+<!-- 
+-->
+## std::cin and extraction operator
+
+#### How does extraction operator >> work?
+- If buffer contains no data, prompt user for input.  When user hits Enter, reads everything (including newline character '\n') and places inside *std::cin* buffer 
+- If buffer contains data, extract
+        - ignore whitespace characters (e.g. spaces, tabs, '\n')
+        - as much data as possible into the varaible
+        - anything leftover is left in the buffer
+
+#### Types of input error
+- Extraction fails
+- Extraction succeed but meaningless
+```{c++}
+#include <cctype>
+...
+
+std::cout << "Input your middle initial: " << std::endl;
+char midInitial;
+std::cin >> midInitial;
+
+if(isalpha(midInitial))
+    std::cout << "Your middle initial is " << midInitial << std::endl;
+else
+    std::cout << "Middle initial should be a letter. Try again." << std::endl;
+```
+- Extraction succeed but followed by additional junk
+```{c++}
+const int maxInputLength = 32767;
+std::cout << "Enter
+```
+
+
+<hr>
+
+
+
+
+
+
+
+
+<!-- 
+-->
 ## Pointers
 - When to use pointers:
     - dynamically allocate memory
@@ -125,8 +185,15 @@ intPtr = &x;            // overwrites address with address of x; now no way of a
 - Primarily used in function parameters (e.g. passing arrays) to help ensure function doesn't change passed argument
 ```{c++}
 ```
+<hr>
 
 
+
+
+
+
+<!-- 
+-->
 ## Arrays
 
 #### Passing to functions
@@ -141,8 +208,15 @@ void PrintSize(int *array);     // yes
 
 - If need to resize arrays, use std::vector rather than attempting to work with dynamically-allocated arrays
 
+<hr>
 
 
+
+
+
+
+<!-- 
+-->
 ## Strings
 
 - Use std::string rather than C-style strings (arrays of chars)
