@@ -1,4 +1,48 @@
-#### Pointers
+## Switch
+
+#### Chaining if-else statements
+- Switch statements are typically more efficient than if-else chains
+
+#### Breaks
+- Avoid fall-through by including *break*s
+```{c++}
+switch(x){
+    case 1:
+        std::cout << 1 << std::endl;
+        break;
+    case 2:
+        std::cout << 2 << std::endl;
+        break;
+    default:
+        std::cout << 0 << std::endl;
+        break;
+}
+```
+
+#### Variable declaration / initialization / assignment
+- Use blocks when declaring variables in the cases
+```{c++}
+switch(x){
+    case 1:
+        int y;
+        y = 5;
+        break;
+    case 2:
+        y = 10;         // this is OK because y declared above
+        break;
+    case 3;
+        int z = 15;     // error; can't initialize variables in cases
+        break;
+    case 4:
+    {
+        int w = 15;     // this is OK because in block
+        break;
+    }
+}
+```
+
+
+## Pointers
 - When to use pointers:
     - dynamically allocate memory
     - pass large data to functions without copying
@@ -6,6 +50,7 @@
     - achieve polymorphism through inheritance
     - data structures (e.g. linked lists, trees)
 
+#### Naming
 - When declaring pointer variables, put asterisk next to variable name
 
 ```{c++}
@@ -18,6 +63,7 @@ int *intPtr1, *intPtr2;
 int* doSomething();
 ```
 
+#### Initialization
 - In C++11, initialize null pointers with *nullptr* which can be useful for null pointer checking
 
 ```{c++}
@@ -32,6 +78,7 @@ else std::cout << "Pointer is a null pointer" << std::endl;
 int *intPtr(NULL);
 ```
 
+#### Dynamic allocation
 - Avoid dangling pointers after deleting memory by setting them to null
 ```{c++}
 int *intPtr = new int;
@@ -55,19 +102,30 @@ int *intPtr = new int;  // intPtr contains address to memory allocated for an in
 intPtr = &x;            // overwrites address with address of x; now no way of accessing above-allocated memory
 ```
 
+#### *Const* pointers
+- Primarily used in function parameters (e.g. passing arrays) to help ensure function doesn't change passed argument
+```{c++}
+```
 
 
-#### Arrays
+## Arrays
+
+#### Passing to functions
 - Make explicit that arrays decay to pointers when passed as function parameters; this causes certain operations (e.g. *sizeof()*) to perform strangely
 
 ```{c++}
-void PrintSize(int array[]);        // no
-void PrintSize(int *array);         // yes
+void PrintSize(int array[]);    // no
+void PrintSize(int *array);     // yes
 ```
 
-#### Strings
-- Use string class from <string> rather than C-style strings (arrays of chars)
+#### Dynamically-allocated arrays
 
-```{c++}
+- If need to resize arrays, use std::vector rather than attempting to work with dynamically-allocated arrays
 
-```
+
+
+## Strings
+
+- Use std::string rather than C-style strings (arrays of chars)
+
+
