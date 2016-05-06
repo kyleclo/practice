@@ -1,5 +1,64 @@
 <!-- 
 -->
+## Namespaces
+
+#### Avoid using *Using*
++ ... especially in global scope
+```{c++}
+// bad
+using namespace Foo;        // global scope namespaces are dangerous
+int main(){
+    DoSomething();          // what if there's another DoSomething()?
+
+...
+
+// still bad
+int main(){
+    using namespace Foo;    // namespace scope limited to block, but can't use Goo::DoSomething() in main()
+    DoSomething();
+
+...
+
+// better but awkward
+int main(){
+    {
+        using namespace Foo;
+        DoSomething();
+    }
+    {
+        using namespace Goo;
+        DoSomething();
+    }
+
+...
+
+// safest
+int main(){
+    Foo::DoSomething();
+```
+
+#### Avoid Nesting Namespaces
+```{c++}
+namespace Foo{
+    namespace Goo{
+        const int g_x(5);
+    }
+}
+
+namespace Hoo = Foo::Goo;
+
+int main(){
+
+    return 0;
+}
+```
+
+
+
+
+
+<!-- 
+-->
 ## Static Local variables
 
 #### Naming
