@@ -402,7 +402,7 @@ int main(){
 ```
 
 #### Passing to functions
-- Make explicit that arrays decay to pointers when passed as function parameters; this causes certain operations (e.g. *sizeof()*) to perform strangely
+- Make explicit that arrays decay to pointers when passed as function parameters; this causes certain operations (e.g. *sizeof*) to perform strangely
 
 ```{c++}
 void PrintSize(int array[]);    // no
