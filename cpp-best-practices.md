@@ -1,5 +1,41 @@
 <!-- 
 -->
+## Global variables
+
+#### Naming
+- Add *g_* to the beginning of global variable names
+```{c++}
+const int g_x;
+...
+int main(){
+...
+}
+```
+
+#### Constant
+- Avoid non-constant global variables
+
+#### Static, Extern, and Linkage
+- Most variables have zero linkage, meaning they can only be accessed within their respective scope
+- *Static* variables have internal linkage, meaning they can be used anywhere within the same file
+- *Extern* variables have external linkage, meaning they can be used in other files as well
+```{c++}
+static g_
+```
+
+<hr>
+
+
+
+
+
+
+
+
+
+
+<!-- 
+-->
 ## Switch statements
 
 #### Chaining if-else statements
@@ -203,7 +239,7 @@ else std::cout << "Pointer is a null pointer" << std::endl;
 - Avoid using NULL because it's a preprocessor macro that's not technically part of C++
 
 ```{c++}
-int *intPtr(NULL);
+int *intPtr(NULL);      // works but bad
 ```
 
 #### Dynamic allocation
