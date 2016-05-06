@@ -2,46 +2,60 @@
 -->
 ## Global variables
 
-
-#### Naming
-- Add *g_* to the beginning of global variable names
-```{c++}
-const int g_x;
-...
-int main(){
-...
-}
-```
-
-#### Constant
-- Avoid non-constant global variables
-
 #### Static, Extern, and Linkage
 * Most variables have zero linkage, meaning they can only be accessed within their respective scope
 
 * *Static* variables have internal linkage, meaning they can be used anywhere within the same file
-    + Static variables can't be accessed in other files even with forward declaration via *extern* keyword 
-    + Static functions can't be accessed in other files even with function prototypes included in header file
+    + Static variables can't be accessed in other files even if we forward declare with *extern* keyword 
+    + Static functions can't be accessed in other files even if we include function prototypes with a header file
 
 * *Extern* variables have external linkage, meaning they can be used in other files as well
-    + Functions have external linkage by default, and don't need *extern* keyword.  Recall, we can define a function *foo* in *foo.cpp* yet still access it in *main.cpp* via forward declaration in our included header file *foo.h*
-    + Global variables can have external linkage if forward declared via the *extern* keyword before *main* function
+    + Global variables can have external linkage if forward declared with the *extern* keyword above the *main* function.
+    + Functions have external linkage by default.  We gain access to functions defined in other files by including header files.
 ```{c++}
 // global.cpp
-int g_x(5);             // global variables defined in separate file
-static int g_y(3);      // this one is static
+int g_x(5);
+static int g_y(3);
 
 // main.cpp
-extern int g_x;     // forward declaration using extern keyword grants access to variable defined in global.cpp
-extern int g_y;     // can't find variable because g_y is static in global.cpp
+extern int g_x;     // forward declaration using extern keyword grants access to g_x defined in global.cpp
+extern int g_y;     // fails because g_y is static in global.cpp
 
 int main(){
 
-    std::cout << "g_x defined in global.cpp has value: " << g_x << std::endl;      // should print 5
-    std::cout << "g_y defined in global.cpp has value: " << g_y << std::endl;      // compile error
+    std::cout << "g_x defined in global.cpp has value: " << g_x << std::endl;      // prints 5
+    std::cout << "g_y defined in global.cpp has value: " << g_y << std::endl;      // compile error because can't find g_y
     
     return 0;
 }
+```
+
+#### Constant
+- Only allow constant (read-only) global variables
+- Use namespaces
+- Define variables in a *.cpp* file made available via *extern* keyword in forward declarations in a header file
+```{c++}
+// constants.cpp
+namespace Constants{                                // initialize global variables in .cpp file
+    extern const double pi(3.14159);
+    extern const double gravity(9.2);
+}
+
+// constants.h
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
+namespace Constants{                                // forward declarations with extern in .h file
+    extern const double pi;
+    extern const double gravity;
+}
+
+#endif
+
+// main.cpp
+#include "constants.h"                              // including .h file gives access to global variables
+...
+double area = Constants::pi * pow(radius, 2);       // remember to access namespace using ::
 ```
 
 <hr>
