@@ -1,17 +1,58 @@
 <!-- 
 -->
+## Static Local variables
+
+#### Naming
+* Static variables typically named with the *s_* prefix
+
+#### Duration
+* Local variables (ones defined in a block) by default have automatic duration, meaning they are created / destroyed when the block is entered / exited.
+
+* *Static* variables have fixed duration, meaning they are initialized once and persist even after their scope has exited.
+```{c++}
+void IncrementAndPrint(){
+    static int s_x(0);
+    s_x++;
+    std::cout << s_x << std::endl;
+}                           // lose access to x when scope exits (block ends), but x retains value
+
+int main(){
+    IncrementAndPrint();    // s_x = 1
+    IncrementAndPrint();    // s_x = 2
+    
+    return 0;
+}
+```
+
+#### Useful as Unique ID generators
+```{c++}
+int GenerateID(){
+    static int s_itemID(0);     // initialized once
+    return s_itemID++;          // returns next ID value and increments for next use
+}
+```
+
+<hr>
+
+
+
+
+
+
+<!-- 
+-->
 ## Global variables
 
 #### Static, Extern, and Linkage
 * Most variables have zero linkage, meaning they can only be accessed within their respective scope
 
-* *Static* variables have internal linkage, meaning they can be used anywhere within the same file
-    + Static variables can't be accessed in other files even if we forward declare with *extern* keyword 
+* *Static* global variables have internal linkage, meaning they can be used anywhere within the same file
+    + Static global variables can't be accessed in other files even if we forward declare with *extern* keyword 
     + Static functions can't be accessed in other files even if we include function prototypes with a header file
 
 * *Extern* variables have external linkage, meaning they can be used in other files as well
-    + Global variables can have external linkage if forward declared with the *extern* keyword above the *main* function.
-    + Functions have external linkage by default.  We gain access to functions defined in other files by including header files.
+    + Non-static Global variables can have external linkage if forward declared with the *extern* keyword above the *main* function.
+    + Non-static functions have external linkage by default.  We gain access to them by including header files.
 ```{c++}
 // global.cpp
 int g_x(5);
