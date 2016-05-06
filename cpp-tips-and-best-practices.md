@@ -30,7 +30,7 @@ int main(){
 }
 ```
 
-#### Constant
+#### Keep Constant
 - Only allow constant (read-only) global variables
 - Use namespaces
 - Define variables in a *.cpp* file made available via *extern* keyword in forward declarations in a header file
