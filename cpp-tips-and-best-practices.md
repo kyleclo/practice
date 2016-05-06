@@ -1,5 +1,35 @@
 <!-- 
 -->
+## Casts
+
+#### Usage
+* Avoid casting at all
+
+* If you must, use C++ *static_cast*
+    + checked at compile-time
+
+* Avoid C-style cast since they're not checked by compiler at compile-time, so will allow strange things:
+    + removing *const*
+    + changing data type without changing underlying representation
+```{c++}
+int num(5);
+int denom(2);
+
+double quotient = double(num) / denom;                  // works, but avoid c-style cast
+double quotient = static_cast<double>(num) / denom;     // ok
+```
+
+
+
+
+
+
+
+
+
+
+<!-- 
+-->
 ## Namespaces
 
 #### Avoid using *Using*
@@ -38,19 +68,21 @@ int main(){
 ```
 
 #### Avoid Nesting Namespaces
+* C++ namespaces were designed to prevent naming collisions, not implement information hierarchy
 ```{c++}
-namespace Foo{
+namespace Foo{                      // remember namespaces declared in global scope (often in header files)
     namespace Goo{
-        const int g_x(5);
+        void DoSomething(){
+            std::cout << "hi" << std::endl;
+        }
     }
 }
 
 namespace Hoo = Foo::Goo;
 
 int main(){
-
-    return 0;
-}
+    Foo::Goo::DoSomething();        // works but...
+    Hoo::DoSomething;               // ...why?
 ```
 
 
@@ -203,7 +235,7 @@ while(choice < 1 || choice > 10){
 - Extraction succeed but meaningless
 ```{c++}
 while(1){
-    std::cout << "Input your height: " << std::endl;
+    std::cout << "Input your height: ";
     int height;
     std::cin >> height;
     
@@ -226,7 +258,7 @@ while(1){
 ```{c++}
 const int maxInputLength = 32767;
 
-std::cout << "Input your height: " << std::endl;
+std::cout << "Input your height: ";
 int height;
 std::cin >> height;
 
@@ -235,9 +267,6 @@ std::cin.ignore(maxInputLength, '\n');      // clears up to maxInputLength chars
 std::cout << "Your height is " << height << std::endl;
 ```
 ```
->> Input your height: 5asdf
->> Your height is 5
-...
 >> Input your height: 5\nasdf
 >> Your height is 5
 ```
@@ -247,7 +276,7 @@ std::cout << "Your height is " << height << std::endl;
 while(1){
     const int maxInputLength = 32767;
 
-    std::cout << "Input your height: " << std::endl;
+    std::cout << "Input your height: ";
     int height;
     std::cin >> height;
     
@@ -395,12 +424,43 @@ void PrintSize(int *array);     // yes
 -->
 ## Strings
 
-- Use std::string rather than C-style strings (arrays of chars)
+#### Usage
+* Use std::string rather than C-style strings (arrays of chars)
 
+#### Getting user input
 
+* Use *getline* function instead of *>>* operator
+```{c++}
+#include <iostream>
+#include <string>
 
+int main(){
 
+    std::cout << "Enter your full name: ";
+    std::string name;
+    std::getline(std::cin, name);       // instead of std::cin >> name;
 
+    std::cout << "Enter your age: ";
+    int age;
+    std::cin >> age;
+
+    std::cout << name << " is " << age << " years old." << std::endl;
+
+    return 0;
+}
+```
+    + Output if use *>>*
+```
+>> Enter your full name: kyle lo
+>> Enter your age: kyle is 0 years old.
+```
+
+    + Output if use *getline*
+```
+>> Enter your full name: kyle lo
+>> Enter your age: 18
+>> kyle lo is 18 years old.
+```
 
 
 
