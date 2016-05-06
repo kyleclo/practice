@@ -357,6 +357,32 @@ intPtr = &x;            // overwrites address with address of x; now no way of a
 -->
 ## Arrays
 
+#### Fixed Arrays
+* Array size is optional when Initializing
+```{c++}
+int array[] = {1,2,3};      // equivalent to int array[3] = {1,2,3};
+```
+
+* If possible, use *enum* to create meaningful indices.  Also conveniently uses final enumerator as array size.
+```{c++}
+// use namespace to maintain proper scope of enumerators (like enum class) without hassle of static_cast<int>
+namespace StudentNames{
+    enum StudentNames{
+        ANNE,           // 0
+        BOB,            // 1
+        CHARLIE,        // 2
+        MAX_STUDENTS    // 3
+    };
+}
+
+int main(){
+    int testScores[StudentNames::MAX_STUDENTS];     // MAX_STUDENTS = 3 is not a variable, so this initialization works
+    testScores[StudentNames::ANNE] = 90;
+    
+    return 0;
+}
+```
+
 #### Passing to functions
 - Make explicit that arrays decay to pointers when passed as function parameters; this causes certain operations (e.g. *sizeof()*) to perform strangely
 
@@ -365,7 +391,7 @@ void PrintSize(int array[]);    // no
 void PrintSize(int *array);     // yes
 ```
 
-#### Dynamically-allocated arrays
+#### Dynamic Arrays
 
 - If need to resize arrays, use std::vector rather than attempting to work with dynamically-allocated arrays
 
