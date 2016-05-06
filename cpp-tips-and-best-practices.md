@@ -179,9 +179,44 @@ typedef std::vector< std::pair< std::string, int > > pairlist_t;        // belie
 pairlist_t pairlist;
 ```
 
+<hr>
+
+
+
+
+
+
+<!-- 
+-->
+## Structs
+
+#### Naming
+* Start with capital letter
+
+#### Initialization
+* Use initializer lists rather than assigning values member by member
+```{c++}
+struct Employee{
+    int id;
+    int age;
+    double wage;
+};
+
+Employee anne = { 1, 32, 60000.0 }
+Employee bob = { 2, 28 }            // final blank member undergoes default initialization (= 0.0)
+```
+
+
+
+
+
 
 
 <hr>
+
+
+
+
 
 
 
