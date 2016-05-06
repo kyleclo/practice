@@ -2,10 +2,6 @@
 -->
 ## Global variables
 
-* Item 1
-* Item 2
-    + Item 2a
-    + Item 2b
 
 #### Naming
 - Add *g_* to the beginning of global variable names
@@ -21,15 +17,15 @@ int main(){
 - Avoid non-constant global variables
 
 #### Static, Extern, and Linkage
-- Most variables have zero linkage, meaning they can only be accessed within their respective scope
+* Most variables have zero linkage, meaning they can only be accessed within their respective scope
 
-- *Static* variables have internal linkage, meaning they can be used anywhere within the same file
-        - Static variables can't be accessed in other files even with forward declaration via *extern* keyword 
-        - Static functions can't be accessed in other files even with function prototypes included in header file
+* *Static* variables have internal linkage, meaning they can be used anywhere within the same file
+    + Static variables can't be accessed in other files even with forward declaration via *extern* keyword 
+    + Static functions can't be accessed in other files even with function prototypes included in header file
 
-- *Extern* variables have external linkage, meaning they can be used in other files as well
-        - Functions have external linkage by default, and don't need *extern* keyword.  Recall, we can define a function *foo* in *foo.cpp* yet still access it in *main.cpp* via forward declaration in our included header file *foo.h*
-        - Global variables can have external linkage if forward declared via the *extern* keyword before *main* function
+* *Extern* variables have external linkage, meaning they can be used in other files as well
+    + Functions have external linkage by default, and don't need *extern* keyword.  Recall, we can define a function *foo* in *foo.cpp* yet still access it in *main.cpp* via forward declaration in our included header file *foo.h*
+    + Global variables can have external linkage if forward declared via the *extern* keyword before *main* function
 ```{c++}
 // global.cpp
 int g_x(5);             // global variables defined in separate file
@@ -142,11 +138,11 @@ for(int i = 0, j = 9; i < 0; i++, j--)
 ## std::cin and extraction operator
 
 #### How does extraction operator >> work?
-- If buffer contains no data, prompt user for input.  When user hits Enter, reads everything (including newline character '\n') and places inside *std::cin* buffer 
-- If buffer contains data, extract
-        - ignore whitespace characters (e.g. spaces, tabs, '\n')
-        - as much data as possible into the varaible
-        - anything leftover is left in the buffer
+* If buffer contains no data, prompt user for input.  When user hits Enter, reads everything (including newline character '\n') and places inside *std::cin* buffer 
+* If buffer contains data, extract
+    + ignore whitespace characters (e.g. spaces, tabs, '\n')
+    + as much data as possible into the varaible
+    + anything leftover is left in the buffer
 
 #### Types of input error
 
@@ -232,12 +228,12 @@ while(1){
 <!-- 
 -->
 ## Pointers
-- When to use pointers:
-    - dynamically allocate memory
-    - pass large data to functions without copying
-    - pass function to another function
-    - achieve polymorphism through inheritance
-    - data structures (e.g. linked lists, trees)
+* When to use pointers:
+    + dynamically allocate memory
+    + pass large data to functions without copying
+    + pass function to another function
+    + achieve polymorphism through inheritance
+    + data structures (e.g. linked lists, trees)
 
 #### Naming
 - When declaring pointer variables, put asterisk next to variable name
