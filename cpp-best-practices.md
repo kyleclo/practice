@@ -17,10 +17,32 @@ int main(){
 
 #### Static, Extern, and Linkage
 - Most variables have zero linkage, meaning they can only be accessed within their respective scope
+
 - *Static* variables have internal linkage, meaning they can be used anywhere within the same file
+        - Static variables can't be accessed in other files even with forward declaration via *extern* keyword 
+        - Static functions can't be accessed in other files even with function prototypes included in header file
+
 - *Extern* variables have external linkage, meaning they can be used in other files as well
+        - Functions have external linkage by default
+                -  Recall, we can define a function *foo* in *foo.cpp* yet still access it in *main.cpp* via forward declaration in our included header file *foo.h*
+                -  Don't need *extern* keyword
+        - Global variables can have external linkage if forward declared via the *extern* keyword before *main* function
 ```{c++}
-static g_
+// global.cpp
+int g_x(5);             // global variables defined in separate file
+static int g_y(3);      // this one is static
+
+// main.cpp
+extern int g_x;     // forward declaration using extern keyword grants access to variable defined in global.cpp
+extern int g_y;     // can't find variable because g_y is static in global.cpp
+
+int main(){
+
+    std::cout << "g_x defined in global.cpp has value: " << g_x << std::endl;      // should print 5
+    std::cout << "g_y defined in global.cpp has value: " << g_y << std::endl;      // compile error
+    
+    return 0;
+}
 ```
 
 <hr>
