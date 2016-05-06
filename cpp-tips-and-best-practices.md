@@ -28,30 +28,44 @@ double quotient = static_cast<double>(num) / denom;     // ok
 -->
 ## Enumeration
 
+#### Naming
+* Start enum identifier with capital letter
+* Use all caps for enumerator values
+* Include the enum identifier as prefix in the enumerator values (unless using *enum class*)
+```{c++}
+enum Color{
+    COLOR_BLACK,
+    COLOR_RED,
+    COLOR_BLUE
+}
+```
+
 #### Enum vs Enum Class
 * If using C++11, prefer *enum class* over *enum*
     + With *enum*, identifier and enumerator values are all within the same scope, which means we can't prevent strange comparison between variables of different enum types
     + With *enum class*, enumerations become strongly typed and strongly scoped
+    
+* Also, when using *enum class*, don't need to include identifier as prefix in enumerator values
 ```{c++}
-enum Color{         // naive enum
-    RED,
-    BLUE
+enum Color{                     // naive enum
+    COLOR_RED,
+    COLOR_BLUE
 };
 
 enum Fruit{
-    BANANA,
-    APPLE
+    FRUIT_BANANA,
+    FRUIT_APPLE
 };
 
-Color color = RED;
-Fruit fruit = BANANA;
+Color color = COLOR_RED;        // Color and COLOR_RED same scope
+Fruit fruit = FRUIT_BANANA;
 
-if(color == fruit)          // this executes because RED and BANANA implicit cast to int 0 value
+if(color == fruit)              // still executes because RED and BANANA implicit cast to int 0 value
 ...
 ```
 
 ```{c++}
-enum class Color{           // enum class instead of enum
+enum class Color{                   // enum class instead of enum
     RED,
     BLUE
 };
@@ -77,18 +91,6 @@ if(static_cast<int>(color) == static_cast<int>(fruit))      // ok
 
 
 
-#### Naming
-* Start enum identifier with capital letter
-* Use all caps for enumerator values
-* Include the enum identifier as prefix in the enumerator values
-```{c++}
-enum Color{
-    COLOR_BLACK,
-    COLOR_RED,
-    COLOR_BLUE
-}
-```
-
 #### Declare in Header Files
 * Can't forward declare enum types because compiler doesn't know how much memory to allocate until a variable of that type is defined
 * If an enum is needed in multiple files, define it in a header file and include
@@ -96,7 +98,7 @@ enum Color{
 #### Uses
 * Useful for error reporting within functions
 ```{c++}
-enum ParseResult{
+enum class ParseResult{
     SUCCESS = 0,
     ERROR_OPENING_FILE = -1,
     ERROR_READING_FILE = -2,
@@ -105,31 +107,31 @@ enum ParseResult{
 
 ParseResult ReadFile(){
     if(! OpenFile() )
-        return ERROR_OPENING_FILE;
+        return ParseResult::ERROR_OPENING_FILE;
     if(! ReadFile() )
-        return ERROR_READING_FILE;
+        return ParseResult::ERROR_READING_FILE;
     if(! ParseFile() )
-        return ERROR_PARSING_FILE;
+        return ParseResult::ERROR_PARSING_FILE;
     
-    return SUCCESS;
+    return ParseResult::SUCCESS;
 }
 
 int main(){
-    if(ReadFile() == SUCCESS){
+    if(ReadFile() == ParseResult::SUCCESS){
         DoSomething();
     }
 }
 ```
 
-* Useful for defining options
+* Useful for defining function options
 ```{c++}
-enum SortType{
-    SORTTYPE_BACKWARDS,
-    SORTTYPE_FORWARDS
+enum class SortType{
+    BACKWARDS,
+    FORWARDS
 };
 
 void Sort(SortType type){
-    if(type == SORTTYPE_BACKWARDS)
+    if(type == SortType::BACKWARDS)
     ...
 ```
 
