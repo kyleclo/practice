@@ -88,38 +88,74 @@ for(int i = 0, j = 9; i < 0; i++, j--)
         - anything leftover is left in the buffer
 
 #### Types of input error
-- Extraction fails
 
 - Extraction succeed but meaningless
 ```{c++}
-#include <cctype>
-...
-
-std::cout << "Input your middle initial: " << std::endl;
-char midInitial;
-std::cin >> midInitial;
-
-if(isalpha(midInitial))
-    std::cout << "Your middle initial is " << midInitial << std::endl;
-else
-    std::cout << "Middle initial should be a letter. Try again." << std::endl;
+while(1){
+    std::cout << "Input your height: " << std::endl;
+    int height;
+    std::cin >> height;
+    
+    if(height > 0){
+       std::cout << "Your height is " << height << std::endl;
+       break;
+    }
+    else
+        std::cout << "You can't have negative height. Try again." << std::endl;
+}
+```
+```
+>> Input your height: -5
+>> You can't have negative height. Try again.
+>> Input your height: 5
+>> Your height is 5
 ```
 
 - Extraction succeed but followed by additional junk
 ```{c++}
 const int maxInputLength = 32767;
 
-std::cout << "Input your middle initial: " << std::endl;
-char midInitial;
-std::cin >> midInitial;
+std::cout << "Input your height: " << std::endl;
+int height;
+std::cin >> height;
 
 std::cin.ignore(maxInputLength, '\n');      // clears up to maxInputLength chars from buffer until first '\n' removed
 
-std::cout << "Your middle initial is " << midInitial << std::endl;
+std::cout << "Your height is " << height << std::endl;
 ```
 ```
->> Input your middle initial: asdf
->> Your middle initial is a
+>> Input your height: 5asdf
+>> Your height is 5
+...
+>> Input your height: 5\nasdf
+>> Your height is 5
+```
+
+- Extraction fails
+```{c++}
+while(1){
+    const int maxInputLength = 32767;
+
+    std::cout << "Input your height: " << std::endl;
+    int height;
+    std::cin >> height;
+    
+    if(std::cin.fail()){
+        std::cout << "Please input an integer. Try again." << std::endl;
+        std::cin.clear();                           // reset to get cin out of failure mode
+        std::cin.ignore(maxInputLength, '\n');      // clear everything in buffer
+    }
+    else{
+        std::cout << "Your height is " << height << std::endl;
+        break;
+    }
+}
+```
+```
+>>> Input your height: asdf
+>>> Please input an integer. Try again.
+>>> Input your height: 5
+>>> Your height is 5
 ```
 
 
