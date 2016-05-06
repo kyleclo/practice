@@ -451,13 +451,13 @@ int main(){
 ```
 
 ```
-// Using >>
+***** Using >> *****
 >> Enter your full name: kyle lo
 >> Enter your age: kyle is 0 years old.
 ```
 
 ```
-// Using getline
+***** Using getline *****
 >> Enter your full name: kyle lo
 >> Enter your age: 18
 >> kyle lo is 18 years old.
