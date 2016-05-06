@@ -89,8 +89,6 @@ if(static_cast<int>(color) == static_cast<int>(fruit))      // ok
 ```
 
 
-
-
 #### Declare in Header Files
 * Can't forward declare enum types because compiler doesn't know how much memory to allocate until a variable of that type is defined
 * If an enum is needed in multiple files, define it in a header file and include
@@ -134,7 +132,56 @@ void Sort(SortType type){
     if(type == SortType::BACKWARDS)
     ...
 ```
+<hr>
 
+
+
+
+
+
+
+
+<!-- 
+-->
+## Typedef
+
+#### Naming
+* End typedefs with *_t* suffix
+
+#### Defining typedefs
+* If using a C++11 compiler, prefer the cleaner way to define typedefs via *using* keyword
+```{c++}
+typedef double distance_t;      // usual
+using distance_t = double;      // new in C++11
+```
+
+#### Uses
+
+* Platform-independent coding
+    + For example, *int* can be 2 or 4 bytes depending on platform
+    + Use C++11 types that specify size in bits
+    + Use preprocessor commands
+```{c++}
+#ifdef INT_2_BYTES          // on machines with 2-byte integers, INT_2_BYTES can be defined
+typedef char int8_t;
+typedef int int16_t;
+typedef long int32_t;
+#else                       // on machine with 4-byte integers, leave INT_2_BYTES undefined
+typedef char int8_t;
+typedef short int16_t;
+typedef int int32_t;
+#endif
+```
+
+* Simplify complex data types
+```{c++}
+typedef std::vector< std::pair< std::string, int > > pairlist_t;        // believe it or not, this is actually a thing
+pairlist_t pairlist;
+```
+
+
+
+<hr>
 
 
 
