@@ -89,6 +89,7 @@ for(int i = 0, j = 9; i < 0; i++, j--)
 
 #### Types of input error
 - Extraction fails
+
 - Extraction succeed but meaningless
 ```{c++}
 #include <cctype>
@@ -103,10 +104,22 @@ if(isalpha(midInitial))
 else
     std::cout << "Middle initial should be a letter. Try again." << std::endl;
 ```
+
 - Extraction succeed but followed by additional junk
 ```{c++}
 const int maxInputLength = 32767;
-std::cout << "Enter
+
+std::cout << "Input your middle initial: " << std::endl;
+char midInitial;
+std::cin >> midInitial;
+
+std::cin.ignore(maxInputLength, '\n');      // clears up to maxInputLength chars from buffer until first '\n' removed
+
+std::cout << "Your middle initial is " << midInitial << std::endl;
+```
+```
+>> Input your middle initial: asdf
+>> Your middle initial is a
 ```
 
 
