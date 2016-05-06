@@ -2,6 +2,11 @@
 -->
 ## Global variables
 
+* Item 1
+* Item 2
+    + Item 2a
+    + Item 2b
+
 #### Naming
 - Add *g_* to the beginning of global variable names
 ```{c++}
