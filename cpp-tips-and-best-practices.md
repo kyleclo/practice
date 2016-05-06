@@ -5,25 +5,6 @@
 #### Naming
 * Static variables typically named with the *s_* prefix
 
-#### Duration
-* Local variables (ones defined in a block) by default have automatic duration, meaning they are created / destroyed when the block is entered / exited.
-
-* *Static* variables have fixed duration, meaning they are initialized once and persist even after their scope has exited.
-```{c++}
-void IncrementAndPrint(){
-    static int s_x(0);
-    s_x++;
-    std::cout << s_x << std::endl;
-}                           // lose access to x when scope exits (block ends), but x retains value
-
-int main(){
-    IncrementAndPrint();    // s_x = 1
-    IncrementAndPrint();    // s_x = 2
-    
-    return 0;
-}
-```
-
 #### Useful as Unique ID generators
 ```{c++}
 int GenerateID(){
@@ -42,34 +23,6 @@ int GenerateID(){
 <!-- 
 -->
 ## Global variables
-
-#### Static, Extern, and Linkage
-* Most variables have zero linkage, meaning they can only be accessed within their respective scope
-
-* *Static* global variables have internal linkage, meaning they can be used anywhere within the same file
-    + Static global variables can't be accessed in other files even if we forward declare with *extern* keyword 
-    + Static functions can't be accessed in other files even if we include function prototypes with a header file
-
-* *Extern* variables have external linkage, meaning they can be used in other files as well
-    + Non-static Global variables can have external linkage if forward declared with the *extern* keyword above the *main* function.
-    + Non-static functions have external linkage by default.  We gain access to them by including header files.
-```{c++}
-// global.cpp
-int g_x(5);
-static int g_y(3);
-
-// main.cpp
-extern int g_x;     // forward declaration using extern keyword grants access to g_x defined in global.cpp
-extern int g_y;     // fails because g_y is static in global.cpp
-
-int main(){
-
-    std::cout << "g_x defined in global.cpp has value: " << g_x << std::endl;      // prints 5
-    std::cout << "g_y defined in global.cpp has value: " << g_y << std::endl;      // compile error because can't find g_y
-    
-    return 0;
-}
-```
 
 #### Keep Constant
 - Only allow constant (read-only) global variables
@@ -114,11 +67,12 @@ double area = Constants::pi * pow(radius, 2);       // remember to access namesp
 -->
 ## Switch statements
 
-#### Chaining if-else statements
+#### Efficiency
 - Switch statements are typically more efficient than if-else chains
 
-#### Variable declaration / initialization / assignment
-- Use blocks when declaring variables in the cases
+#### Use Blocks
+- Gets around restrictions regarding variable initialization
+- Clears up scope of variables defined within cases
 ```{c++}
 switch(x){
     case 1:
@@ -170,16 +124,6 @@ while(choice < 1 || choice > 10){
 -->
 ## For loops
 
-#### Comma operator
-- Comma operators are typically only ever used in for-loops
-```{c++}
-for(int i = 0, j = 9; i < 0; i++, j--)
-    std::cout << i << " " << j << std::endl;
-```
-
-#### Scope of loop iterators
-- In newer C++ versions, iterator variables defined in *for()* are destroyed at the end of the loop
-
 #### Return, break, and continue
 - *Return* exits the function, *break* exits the loop, and *continue* skips to next iteration
 
@@ -188,18 +132,14 @@ for(int i = 0, j = 9; i < 0; i++, j--)
 
 
 
+
+
+
 <!-- 
 -->
 ## std::cin and extraction operator
 
-#### How does extraction operator >> work?
-* If buffer contains no data, prompt user for input.  When user hits Enter, reads everything (including newline character '\n') and places inside *std::cin* buffer 
-* If buffer contains data, extract
-    + ignore whitespace characters (e.g. spaces, tabs, '\n')
-    + as much data as possible into the varaible
-    + anything leftover is left in the buffer
-
-#### Types of input error
+#### Dealing with Input Error
 
 - Extraction succeed but meaningless
 ```{c++}
@@ -283,29 +223,20 @@ while(1){
 <!-- 
 -->
 ## Pointers
-* When to use pointers:
-    + dynamically allocate memory
-    + pass large data to functions without copying
-    + pass function to another function
-    + achieve polymorphism through inheritance
-    + data structures (e.g. linked lists, trees)
 
 #### Naming
 - When declaring pointer variables, put asterisk next to variable name
-
 ```{c++}
-int *intPtr1, *intPtr2;
+int *intPtr1, *intPtr2;     // makes sense when declaring multiple pointers in one line
 ```
 
-- When declaring functions returning pointers, put asterisk next to type
-
+- When declaring functions that return pointers, put asterisk next to type
 ```{c++}
 int* doSomething();
 ```
 
 #### Initialization
 - In C++11, initialize null pointers with *nullptr* which can be useful for null pointer checking
-
 ```{c++}
 int *intPtr(nullptr);
 if(intPtr) std::cout << "Pointer is pointing to an int variable" << std::endl;
@@ -313,9 +244,8 @@ else std::cout << "Pointer is a null pointer" << std::endl;
 ```
 
 - Avoid using NULL because it's a preprocessor macro that's not technically part of C++
-
 ```{c++}
-int *intPtr(NULL);      // works but bad
+int *intPtr(NULL);      // still works but bad
 ```
 
 #### Dynamic allocation
@@ -343,7 +273,7 @@ intPtr = &x;            // overwrites address with address of x; now no way of a
 ```
 
 #### *Const* pointers
-- Primarily used in function parameters (e.g. passing arrays) to help ensure function doesn't change passed argument
+- Use in function parameters (e.g. passing arrays) to ensure function doesn't change passed argument
 ```{c++}
 ```
 <hr>
@@ -409,3 +339,21 @@ void PrintSize(int *array);     // yes
 - Use std::string rather than C-style strings (arrays of chars)
 
 
+
+
+
+
+
+
+
+
+<hr>
+
+
+
+
+
+
+
+<!-- 
+-->
