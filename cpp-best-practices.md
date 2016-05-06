@@ -23,9 +23,7 @@ int main(){
         - Static functions can't be accessed in other files even with function prototypes included in header file
 
 - *Extern* variables have external linkage, meaning they can be used in other files as well
-        - Functions have external linkage by default
-                -  Recall, we can define a function *foo* in *foo.cpp* yet still access it in *main.cpp* via forward declaration in our included header file *foo.h*
-                -  Don't need *extern* keyword
+        - Functions have external linkage by default, and don't need *extern* keyword.  Recall, we can define a function *foo* in *foo.cpp* yet still access it in *main.cpp* via forward declaration in our included header file *foo.h*
         - Global variables can have external linkage if forward declared via the *extern* keyword before *main* function
 ```{c++}
 // global.cpp
