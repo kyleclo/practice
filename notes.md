@@ -93,3 +93,19 @@ int main(){
     + ignore whitespace characters (e.g. spaces, tabs, '\n')
     + as much data as possible into the varaible
     + anything leftover is left in the buffer
+
+
+
+
+
+
+
+
+<!-- 
+-->
+## Enumeration
+
+#### Memory
+* No memory is allocated when an *enum* is defined
+* Memory is only allocated when a variable of that type is declared
+
