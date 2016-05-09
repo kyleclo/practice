@@ -6,15 +6,15 @@
 
 * *Static* variables have fixed duration, meaning they are initialized once and persist even after their scope has exited.
 ```{c++}
-void IncrementAndPrint(){
+void incrementAndPrint(){
     static int s_x(0);
     s_x++;
     std::cout << s_x << std::endl;
 }                           // lose access to x when scope exits (block ends), but x retains value
 
 int main(){
-    IncrementAndPrint();    // s_x = 1
-    IncrementAndPrint();    // s_x = 2
+    incrementAndPrint();    // s_x = 1
+    incrementAndPrint();    // s_x = 2
     
     return 0;
 }
