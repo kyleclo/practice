@@ -103,20 +103,20 @@ enum class ParseResult{
     ERROR_PARSING_FILE = -3
 };
 
-ParseResult ReadFile(){
-    if(! OpenFile() )
+ParseResult readFile(){
+    if(! openFile() )
         return ParseResult::ERROR_OPENING_FILE;
-    if(! ReadFile() )
+    if(! readFile() )
         return ParseResult::ERROR_READING_FILE;
-    if(! ParseFile() )
+    if(! parseFile() )
         return ParseResult::ERROR_PARSING_FILE;
     
     return ParseResult::SUCCESS;
 }
 
 int main(){
-    if(ReadFile() == ParseResult::SUCCESS){
-        DoSomething();
+    if(readFile() == ParseResult::SUCCESS){
+        doSomething();
     }
 }
 ```
@@ -128,7 +128,7 @@ enum class SortType{
     FORWARDS
 };
 
-void Sort(SortType type){
+void sort(SortType type){
     if(type == SortType::BACKWARDS)
     ...
 ```
@@ -231,14 +231,14 @@ Employee bob = { 2, 28 }            // final blank member undergoes default init
 // bad
 using namespace Foo;        // global scope namespaces are dangerous
 int main(){
-    DoSomething();          // what if there's another DoSomething()?
+    doSomething();          // what if there's another DoSomething()?
 
 ...
 
 // still bad
 int main(){
     using namespace Foo;    // namespace scope limited to block, but can't use Goo::DoSomething() in main()
-    DoSomething();
+    doSomething();
 
 ...
 
@@ -246,18 +246,18 @@ int main(){
 int main(){
     {
         using namespace Foo;
-        DoSomething();
+        doSomething();
     }
     {
         using namespace Goo;
-        DoSomething();
+        doSomething();
     }
 
 ...
 
 // safest
 int main(){
-    Foo::DoSomething();
+    Foo::doSomething();
 ```
 
 #### Avoid Nesting Namespaces
@@ -265,7 +265,7 @@ int main(){
 ```{c++}
 namespace Foo{                      // remember namespaces declared in global scope (often in header files)
     namespace Goo{
-        void DoSomething(){
+        void doSomething(){
             std::cout << "hi" << std::endl;
         }
     }
@@ -274,8 +274,8 @@ namespace Foo{                      // remember namespaces declared in global sc
 namespace Hoo = Foo::Goo;
 
 int main(){
-    Foo::Goo::DoSomething();        // works but...
-    Hoo::DoSomething;               // ...why?
+    Foo::Goo::doSomething();        // works but...
+    Hoo::doSomething;               // ...why?
 ```
 
 
@@ -291,7 +291,7 @@ int main(){
 
 #### Useful as Unique ID generators
 ```{c++}
-int GenerateID(){
+int generateID(){
     static int s_itemID(0);     // initialized once
     return s_itemID++;          // returns next ID value and increments for next use
 }
@@ -598,8 +598,8 @@ int main(){
 - Make explicit that arrays decay to pointers when passed as function parameters; this causes certain operations (e.g. *sizeof*) to perform strangely
 
 ```{c++}
-void PrintSize(int array[]);    // no
-void PrintSize(int *array);     // yes
+void printSize(int array[]);    // no
+void printSize(int *array);     // yes
 ```
 
 #### Dynamic Arrays
