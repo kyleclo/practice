@@ -1,48 +1,50 @@
-#include <iostream>
+# include <iostream>
+# include <vector>
 
-using namespace std;
-
-void BubbleSort(int x[], int n);
-void PrintArray(int x[], int n);
-
-
+void bubbleSort(std::vector<int>& x);
+void printVector(std::vector<int>& x);
 
 int main(){
 
-	int n = 6;
-	int x[] = {2, 5, 3, 6, 1, 4};
-
-	BubbleSort(x, n);
-	PrintArray(x, n);
-
-	return 0;
+    std::vector<int> x = {2, 5, 3, 6, 1, 4};
+    
+    bubbleSort(x);
+    printVector(x);
+    
+    return 0;
 }
 
-
-void BubbleSort(int x[], int n){
-
-	for(int indexEnd = n; indexEnd >= 1; indexEnd--){   // once bubbled to end, don't check element for swap
-
-		bool swapped = false;
-
-		for(int i = 1; i <= indexEnd; i++){
-
-			if(x[i - 1] > x[i]){
-				int temp = x[i - 1];
-				x[i - 1] = x[i];
-				x[i] = temp;
-				swapped = true;
-			}
-		}
-
-		if(swapped == false){ break; }
-	}
+void bubbleSort(std::vector<int>& x){
+    
+    int n = x.size();
+    
+    for(int indexEnd = n; indexEnd > 0; indexEnd--){
+        
+        bool swapped = false;
+        
+        for(int indexLeft = 0; indexLeft < indexEnd; indexLeft++){
+            
+            if(x[indexLeft] > x[indexLeft + 1]){
+                
+                int temp = x[indexLeft];
+                x[indexLeft] = x[indexLeft + 1];
+                x[indexLeft + 1] = temp;
+                
+                swapped = true;
+            }
+        }
+        
+        if(swapped == false)
+            break;
+    }
 }
 
+void printVector(std::vector<int>& x){
 
-void PrintArray(int x[], int n){
-
-	for(int i = 0; i < n; i++){
-		cout << x[i] << " ";
-	}
+    int n = x.size();
+    
+    for(int i = 0; i < n; i++)
+        std::cout << x[i] << " ";
+    
+    std::cout << std::endl;
 }
