@@ -1,45 +1,47 @@
 #include <iostream>
+#include <vector>
 
-using namespace std;
-
-void SelectionSort(int x[], int n);
-void PrintArray(int x[], int n);
-
+void printVector(std::vector<int>& x);
+void selectionSort(std::vector<int>& x);
 
 
 int main(){
-
-	int n = 6;
-	int x[] = {2, 5, 3, 6, 1, 4};
-
-	SelectionSort(x, n);
-	PrintArray(x, n);
-
-	return 0;
+    
+    std::vector<int> x = {2, 5, 3, 6, 1, 4};
+    
+    selectionSort(x);
+    printVector(x);
+    
+    return 0;
 }
 
 
-void SelectionSort(int x[], int n){
-
-	for(int indexSortedEnd = 0; indexSortedEnd < n - 1; indexSortedEnd++){
-
-		int indexMin = indexSortedEnd;
-
-		// find minimum among remaining values
-		for(int i = indexSortedEnd + 1; i < n; i++){
-			if(x[i] < x[indexMin]){ indexMin = i; }
-		}
-
-		// swap minimum into Left subarray
-		int temp = x[indexSortedEnd];
-		x[indexSortedEnd] = x[indexMin];
-		x[indexMin] = temp;
-	}
+void selectionSort(std::vector<int>& x){
+    
+    int n = x.size();
+    
+    for(int indexSlot = 0; indexSlot < n - 1; indexSlot++){
+        
+        int indexMin = indexSlot;
+        
+        // find min among remaining values
+        for(int indexMinCandidate = indexMin + 1; indexMinCandidate < n; indexMinCandidate++)
+            if(x[indexMinCandidate] < x[indexMin])
+                indexMin = indexMinCandidate;
+                
+        // swap min into slot
+        int temp = x[indexSlot];
+        x[indexSlot] = x[indexMin];
+        x[indexMin] = temp;
+    }
 }
 
-void PrintArray(int x[], int n){
-
-	for(int i = 0; i < n; i++){
-		cout << x[i] << " ";
-	}
+void printVector(std::vector<int>& x){
+    
+    int n = x.size();
+    
+    for(int i = 0; i < n; i++)
+        std::cout << x[i] << " ";
+    
+    std::cout << std::endl;
 }
