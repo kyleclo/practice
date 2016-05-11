@@ -59,7 +59,7 @@ int mergeAndCountInversions(std::vector<int>& x, const int indexStart, const int
             temp[indexTemp] = x[indexRight];
             indexRight++;
             
-            int numLeftRemaining = indexMiddle - indexLeft + 1;
+            int numLeftRemaining = indexMiddle - indexLeft + 1;     // number of inversions between Left and Right
             count += numLeftRemaining;
         }
         
