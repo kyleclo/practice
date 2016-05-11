@@ -8,7 +8,7 @@ The Quick Sort algorithm chooses a **pivot** value from among the array elements
 * All elements in the Right subarray are greater than the pivot
 Once the array is partitioned, the Quick Sort algorithm runs again on each subarray.
 
-Eventually, the subarrays have length 1. In this case, the Quick Sort algorithm needs not execute because that subarray would be already sorted.
+Eventually, the subarrays have length 1. In this case, the Quick Sort algorithm needs not execute because a subarray of length 1 is already sorted.
 
 ## Lomuto
 
@@ -16,7 +16,7 @@ This is the version in which:
 * We select an element to be the pivot
 * We have a **single** index denoting the location of a **middle** element
 * We loop over each **candidate** element (other than the pivot) and perform:
-    + Swaps between the middle element and the candidate element
+    + **Swaps** between the middle element and the candidate element to **satisfy the Left and Right subarray conditions**
     + Increments to the middle index
 * We finally **swap the pivot with the middle element**, thereby correctly separating the array into Left and Right subarrays
 
