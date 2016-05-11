@@ -59,7 +59,7 @@ for(int indexCandidate = indexStart + 1; indexCandidate <= indexEnd; indexCandid
 // swap pivot x[indexStart] with x[indexMiddle]     ==>     ERROR BECAUSE indexMiddle = 3 IS OUT OF BOUNDS
 ```
 
-* Error roccurs when every candidate requires a swap, thereby allowing indexMiddle to increment enough to fall out of bounds
+* Error occurs when every candidate requires a swap, thereby allowing indexMiddle to increment enough to fall out of bounds
 
 #### Conclusion
 
