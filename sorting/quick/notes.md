@@ -20,8 +20,19 @@ This is the version in which:
     + Increments to the middle index
 * We finally **swap the pivot with the middle element**, thereby correctly separating the array into Left and Right subarrays
 
-#### Pivot should remain unmoved until the final swap into the middle
+#### Pivot should remain unmoved until the final swap into the middle index
 
-Suppose pivot index = 0 and middle index = 0.  We decide to iterate the middle index going rightward.
+```{c++}
+int x[] = {3, 1};
 
-Let $x = \{ 2, 5, 3, 6, 1, 4\}$.  Let $indexPivot = 0$ and $indexMiddle = 0$.  
+int pivot = x[indexStart];          // both pivot location and indexMiddle start at 0
+int indexMiddle = indexStart;
+
+for(int indexCandidate = indexStart; indexCandidate <= indexEnd; indexCandidate++){      // for candidates values [3, 1]
+   
+   // candidate 3 NOT LESS THAN pivot 3    ==>     indexMiddle = 0
+   // candidate 1  IS LESS THAN pivot 3    ==>     indexMiddle = 1     array becomes x = [1, 3]
+}
+
+// swap pivot x[indexStart] with x[indexMiddle]   ==>     array becomes x = [3, 1]      WHICH IS INCORRECT
+```
