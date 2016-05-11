@@ -62,20 +62,23 @@ void quickSortHoare(std::vector<int>& x, const int indexStart, const int indexEn
         int indexLeft = indexStart;
         int indexRight = indexEnd;
         
-        while(x[indexLeft] < pivot)
-            indexLeft++;
-        
-        while(x[indexRight] > pivot)
-            indexRight--;
-        
-        if(indexLeft <= indexRight){
+        while(indexLeft <= indexRight){
             
-            int temp = x[indexLeft];
-            x[indexLeft] = x[indexRight];
-            x[indexRight] = temp;
+            while(x[indexLeft] < pivot)
+                indexLeft++;
             
-            indexLeft++;
-            indexRight--;
+            while(x[indexRight] > pivot)
+                indexRight--;
+            
+            if(indexLeft <= indexRight){
+                
+                int temp = x[indexLeft];
+                x[indexLeft] = x[indexRight];
+                x[indexRight] = temp;
+                
+                indexLeft++;
+                indexRight--;
+            }
         }
         
         quickSortHoare(x, indexStart, indexRight);
