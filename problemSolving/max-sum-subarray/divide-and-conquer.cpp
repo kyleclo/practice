@@ -1,10 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <numeric>
 
 
 std::vector<int> findMaxSumSubarray(std::vector<int> &x, int indexStart, int indexEnd);
 std::vector<int> findMaxCrossSubarray(std::vector<int> &x, int indexStart, int indexMiddle, int indexEnd);
-int sumVector(std::vector<int> &x);
 void printVector(std::vector<int> &x);
 
 
@@ -15,7 +15,7 @@ int main(){
     std::vector<int> subX = findMaxSumSubarray(x, 0, x.size() - 1);
     
     printVector(subX);
-    std::cout << sumVector(subX) << std::endl;
+    std::cout << std::accumulate(subX.begin(), subX.end(), 0) << std::endl;
     
     return 0;
 }
@@ -31,15 +31,15 @@ std::vector<int> findMaxSumSubarray(std::vector<int> &x, int indexStart, int ind
         std::vector<int> right = findMaxSumSubarray(x, indexMiddle + 1, indexEnd);
         std::vector<int> cross = findMaxCrossSubarray(x, indexStart, indexMiddle, indexEnd);
         
-        int sumLeft = sumVector(left);
-        int sumRight = sumVector(right);
-        int sumCross = sumVector(cross);
+        int sumLeft = std::accumulate(left.begin(), left.end(), 0);
+        int sumRight = std::accumulate(right.begin(), right.end(), 0);
+        int sumCross = std::accumulate(cross.begin(), cross.end(), 0);
         
-        if(sumRight > sumLeft && sumRight > sumCross)
-            return right;
-            
-        else if (sumLeft > sumRight && sumLeft > sumCross)
+        if (sumLeft > sumRight && sumLeft > sumCross)
             return left;
+        
+        else if(sumRight > sumLeft && sumRight > sumCross)
+            return right;
         
         else
             return cross;
@@ -86,19 +86,6 @@ std::vector<int> findMaxCrossSubarray(std::vector<int> &x, int indexStart, int i
         maxCrossSubarray.push_back(x[i]);
 
     return maxCrossSubarray;
-}
-
-
-
-int sumVector(std::vector<int> &x){
-    
-    int n = x.size();
-    int sum = 0;
-    
-    for(int i = 0; i < n; i++)
-        sum += x[i];
-    
-    return sum;
 }
 
 
