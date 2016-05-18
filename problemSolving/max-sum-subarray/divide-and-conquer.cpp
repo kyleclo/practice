@@ -46,7 +46,7 @@ std::vector<int> findMaxSumSubarray(std::vector<int> &x, int indexStart, int ind
     }
     
     else
-        return {};
+        return {x[indexStart]};
 }
 
 
