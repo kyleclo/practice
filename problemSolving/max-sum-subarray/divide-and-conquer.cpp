@@ -45,9 +45,8 @@ std::vector<int> findMaxSumSubarray(std::vector<int> &x, int indexStart, int ind
             return cross;
     }
     
-    std::vector<int> empty = {};
-    
-    return empty;
+    else
+        return {};
 }
 
 
@@ -57,7 +56,7 @@ std::vector<int> findMaxCrossSubarray(std::vector<int> &x, int indexStart, int i
     int indexMaxLeft = indexMiddle;
     int maxSumLeft = 0;
     int currentSum = 0;
-    for(int i = indexMaxLeft; i >= 0; i--){
+    for(int i = indexMaxLeft; i >= indexStart; i--){
         
         currentSum += x[i];
         
@@ -112,4 +111,3 @@ void printVector(std::vector<int> &x){
         
      std::cout << std::endl;
 }
-
