@@ -78,7 +78,9 @@ class _IteratorForMyIterableThing(Iterator):
     
         def get_next():
             if self.index < len(self.iterable):
-                return self.iterable[self.index++]
+                next = self.iterable[self.index]
+                self.index += 1
+                return next
             return None
 ```
 
