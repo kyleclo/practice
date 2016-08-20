@@ -44,7 +44,32 @@ We can define a **factory class** whose purpose is to instantiate `Shape` object
 
 
 # Iterator
-<font color = 'red'> Why do we use this at all? </font>
+Suppose I have a `Container`, which is some data structure containing multiple elements that can be iterated over.  I want the ability to iterate over these elements.
+
+Well, we could just use an array if elements are primitives:
+
+```python
+def main():
+    my_container = [1, 2, 3, 4, 5]
+    for x in my_container:
+        print x
+```
+
+and define our own iterator if we have something more complicated like a `Tree` or `LinkedList`:
+
+```python
+def main():
+    my_container = Tree()
+    
+```
+
+
+### Approach 1
+
+I could 
+
+
+
 
 I want the ability to iterate over elements of something in a sequential manner without knowing its representation.
 
