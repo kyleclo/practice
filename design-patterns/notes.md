@@ -2,7 +2,9 @@
 
 We use the Factory pattern when we want to instantiate objects from different classes that are grouped under a common superclass or interface.
 
-Naivey, instantiating a bunch of objects could look like:
+#### Naive approach
+
+Instantiating a bunch of objects could look like:
 
 ```python
 my_triangle = Triangle()
@@ -13,7 +15,11 @@ my_square = Square()
 
 where `Triangle`, `Circle`, and `Square` all implement the `Shape` abstract base class.
 
-This is fine, but what if the Class needs to be chosen at run-time?  For example, what if we want to generate shapes randomly, or shapes are chosen by the user when prompted?  Well, we could expand the code above to look like:
+This is fine, but what if the Class needs to be chosen at run-time?  For example, what if we want to generate shapes randomly, or shapes are chosen by the user when prompted?
+
+#### Somewhat better approach
+
+We could expand the code above to look like:
 
 ```python
 #  choose ID of shape via random number generator or input
@@ -27,7 +33,9 @@ elif id == 3:
 ...
 ```
 
-If we want to instantiate many objects (e.g. generate 10 random shapes) then we'd want to wrap this entire if-else chain into a single, reusable command.  That is what a **Factory** provides:
+If we want to instantiate many objects (e.g. generate 10 random shapes) then we'd want to wrap this entire if-else chain into a single, reusable command.  That is what a **Factory** provides!
+
+#### Factory approach
 
 ```python
 class ShapeFactory:
@@ -52,6 +60,11 @@ for name in shape_names:
     my_shapes.append(my_shape_factory.createShape(name))
 ```
 
+#### More reasons
+
+Factories become especially useful if there is large overhead in instantiating objects.  For example, suppose you want to 
+
+<hr>
 
 
 
