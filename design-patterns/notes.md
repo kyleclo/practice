@@ -1,44 +1,35 @@
-## Factory
+# Factory
 
-### Problem
-
-Suppose we have an application that requires the **instantiation** of `Shape` objects with `draw` methods:
+We use the Factory pattern when we want to instantiate objects from different classes that are grouped under a common superclass or interface.  This could look something like:
 
 ```python
-def main():
-    my_shapes = []
-    my_shapes.append(Circle())
-    my_shapes.append(Circle())
-    my_shapes.append(Square())
-    my_shapes.append(Square())
-
-    for shape in my_shapes:
-        shape.draw()
+my_triangle = Triangle()
+my_circle = Circle()
+my_square = Square()
+...
 ```
 
-### Approach 1
+where `Triangle`, `Circle`, and `Square` all implement the `Shape` abstract base class.
 
-We can use an **interface** (see **abstract base class** for Python) that requires every `Shape` to implement a `draw` method.
+This is fine, but we can run into certain problems.
+
+### Problem 1:  Class needs to be chosen at run time
+
+For example, what if we want to generate shapes randomly, or shapes are chosen by the user when prompted?  Well, we could expand the code above to look like:
 
 ```python
-class Shape:
-    def draw(self):
-        raise NotImplementedError
-
-class Circle(Shape):
-    def draw(self):
-        print 'Drawing a circle.'
-
-class Square(Shape):
-    def draw(self):
-        print 'Drawing a square.'
+#  choose ID of shape via random number generator or input
+if id == 1:
+    my_shape = Triangle()
+elif id == 2:
+    my_shape = Circle()
+elif id == 3:
+    my_shape = Square()
+...
 ```
 
-The problem with this approach comes when others want to add their own shapes.
+The way to do this would be to have a centralized location with all the constructors and use a Random Number Generator to select the id of the desired shape to instantiate.
 
-### Approach 2
-
-We can define a **factory class** whose purpose is to instantiate `Shape` objects.
 
 
 
