@@ -1,6 +1,8 @@
 # Factory
 
-We use the Factory pattern when we want to instantiate objects from different classes that are grouped under a common superclass or interface.  This could look something like:
+We use the Factory pattern when we want to instantiate objects from different classes that are grouped under a common superclass or interface.
+
+Naivey, instantiating a bunch of objects could look like:
 
 ```python
 my_triangle = Triangle()
@@ -11,14 +13,11 @@ my_square = Square()
 
 where `Triangle`, `Circle`, and `Square` all implement the `Shape` abstract base class.
 
-This is fine, but we can run into certain problems.
-
-### Problem 1:  Class needs to be chosen at run time
-
-For example, what if we want to generate shapes randomly, or shapes are chosen by the user when prompted?  Well, we could expand the code above to look like:
+This is fine, but what if the Class needs to be chosen at run-time?  For example, what if we want to generate shapes randomly, or shapes are chosen by the user when prompted?  Well, we could expand the code above to look like:
 
 ```python
 #  choose ID of shape via random number generator or input
+...
 if id == 1:
     my_shape = Triangle()
 elif id == 2:
@@ -28,8 +27,30 @@ elif id == 3:
 ...
 ```
 
-The way to do this would be to have a centralized location with all the constructors and use a Random Number Generator to select the id of the desired shape to instantiate.
+If we want to instantiate many objects (e.g. generate 10 random shapes) then we'd want to wrap this entire if-else chain into a single, reusable command.  That is what a **Factory** provides:
 
+```python
+class ShapeFactory:
+    def createShape(type):
+        if type == 'triangle':
+            return Triangle()
+        elif type == 'circle':
+            return Circle()
+        elif type == 'square':
+            return Square()
+        else:
+            print 'That's not a shape!'
+            return None
+```
+
+Now, I can create many new `Shape` objects like so:
+
+```python
+my_shape_factory = ShapeFactory()
+my_shapes = list()
+for name in shape_names:
+    my_shapes.append(my_shape_factory.createShape(name))
+```
 
 
 
