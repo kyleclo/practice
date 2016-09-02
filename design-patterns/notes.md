@@ -2,7 +2,7 @@
 
 We use the Factory pattern when we want to instantiate objects from different classes that are grouped under a common superclass or interface.
 
-#### Naive approach
+### Usual approach
 
 Instantiating a bunch of objects could look like:
 
@@ -15,15 +15,15 @@ my_square = Square()
 
 where `Triangle`, `Circle`, and `Square` all implement the `Shape` abstract base class.
 
-This is fine, but what if the Class needs to be chosen at run-time?  For example, what if we want to generate shapes randomly, or shapes are chosen by the user when prompted?
+This is fine for simple situations, but what if the Class needs to be chosen at run-time?  For example, what if we want to generate shapes randomly, or shapes are chosen by the user when prompted?
 
-#### Somewhat better approach
+### Alternative approach
 
-We could expand the code above to look like:
+To handle this, we could modify the code above to look like:
 
 ```python
-#  choose ID of shape via random number generator or input
-...
+id = ... #choose ID via random number generator or user input
+
 if id == 1:
     my_shape = Triangle()
 elif id == 2:
@@ -35,7 +35,7 @@ elif id == 3:
 
 If we want to instantiate many objects (e.g. generate 10 random shapes) then we'd want to wrap this entire if-else chain into a single, reusable command.  That is what a **Factory** provides!
 
-#### Factory approach
+### Using a Factory
 
 ```python
 class ShapeFactory:
@@ -55,14 +55,35 @@ Now, I can create many new `Shape` objects like so:
 
 ```python
 my_shape_factory = ShapeFactory()
+
+shape_names = ... #choose names via random number generator or user input
+
 my_shapes = list()
 for name in shape_names:
     my_shapes.append(my_shape_factory.createShape(name))
 ```
 
-#### More reasons
+And thus, the Factory centralizes all the code for instantiating these similar objects and makes it reusable.
 
-Factories become especially useful if there is large overhead in instantiating objects.  For example, suppose you want to 
+#### Useful for statistical models
+
+Factories become especially useful if there is large overhead in instantiating objects.  For example, suppose you have many statistical models to instantiate.  Then, we can start with an abstract base class:
+
+```python
+class Classifier:
+    def __init__(self):
+        self.params = None
+        
+    def train(self, train_x, train_y):
+        raise NotImplementedError
+    
+    def predict(self, test_x):
+        raise NotImplementedError
+```
+
+and define subclasses like `LogisticRegression` and `DecisionTree`.
+
+
 
 <hr>
 
