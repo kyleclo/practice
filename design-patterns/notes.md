@@ -10,39 +10,19 @@ Instantiating a bunch of objects could look like:
 my_triangle = Triangle()
 my_circle = Circle()
 my_square = Square()
-...
 ```
 
 where `Triangle`, `Circle`, and `Square` all implement the `Shape` abstract base class.
 
-This is fine in many situations, but what if the classes need to be chosen at run-time?  For example, what if we want to generate shapes according to a random number generator or shapes are chosen by a user when prompted?  
-
-### Alternative approach
-
-Let's assume the former for our example. To handle this, we could modify the code above to look like:
-
-```python
-import numpy as np
-
-name = np.random.choice(['triangle', 'circle', 'square'])
-
-if name == 'triangle':
-    my_shape = Triangle()
-elif name == 'circle':
-    my_shape = Circle()
-elif name == 'square':
-    my_shape = Square()
-else:
-    print 'That's not a shape!'
-```
-
-If we want to instantiate many objects (e.g. generate 100 random shapes) then we'd want to wrap this entire if-else chain into a single, reusable command.  That's what a **Factory** provides!
+This is fine in many situations, but what if the classes need to be chosen at run-time?  For example:
+- Shapes generated according to a random number generator
+- Shapes chosen depend on some input (e.g. user prompt or a read file)
 
 ### Using a Factory
 
 ```python
 class ShapeFactory:
-    def createShape(name):
+    def create(name):
         if name == 'triangle':
             return Triangle()
         elif name == 'circle':
@@ -54,19 +34,18 @@ class ShapeFactory:
             return None
 ```
 
-Now, I can create many new `Shape` objects like so:
+Now, I can create many new `Shape` objects through my instantiated `Factory`.  For example, the `main` function could look like this:
 
 ```python
 my_shape_factory = ShapeFactory()
 
-shape_names = np.random.choice(['triangle', 'circle', 'square'], size=100, replace=True)
-
 my_shapes = list()
-for name in shape_names:
-    my_shapes.append(my_shape_factory.createShape(name))
+while not stopping_condition:
+    name = ... #some method of choosing a shape (e.g. RNG or user input)
+    my_shapes.append(my_shape_factory.create(name))
+...
 ```
 
-And thus, the Factory centralizes all the code for instantiating these similar objects and makes it reusable.
 
 <!-- 
 #### Useful for statistics
