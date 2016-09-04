@@ -15,25 +15,27 @@ my_square = Square()
 
 where `Triangle`, `Circle`, and `Square` all implement the `Shape` abstract base class.
 
-This is fine for simple situations, but what if the Class needs to be chosen at run-time?  For example, what if we want to generate shapes randomly, or shapes are chosen by the user when prompted?
+This is fine in many situations, but what if the classes need to be chosen at run-time?  For example, what if we want to generate shapes according to a random number generator or shapes are chosen by a user when prompted?  Let's assume the former.
 
 ### Alternative approach
 
 To handle this, we could modify the code above to look like:
 
 ```python
-id = ... #choose ID via random number generator or user input
+import numpy as np
 
-if id == 1:
+type = np.random.choice(['triangle', 'circle', 'square'])
+
+if type == 'triangle':
     my_shape = Triangle()
-elif id == 2:
+elif type == 'circle':
     my_shape = Circle()
-elif id == 3:
+elif type == 'square':
     my_shape = Square()
 ...
 ```
 
-If we want to instantiate many objects (e.g. generate 10 random shapes) then we'd want to wrap this entire if-else chain into a single, reusable command.  That is what a **Factory** provides!
+If we want to instantiate many objects (e.g. generate 10 random shapes) then we'd want to wrap this entire if-else chain into a single, reusable command.  That's what a **Factory** provides!
 
 ### Using a Factory
 
@@ -56,7 +58,7 @@ Now, I can create many new `Shape` objects like so:
 ```python
 my_shape_factory = ShapeFactory()
 
-shape_names = ... #choose names via random number generator or user input
+shape_names = np.random.choice(['triangle', 'circle', 'square'], 10)
 
 my_shapes = list()
 for name in shape_names:
