@@ -15,38 +15,39 @@ my_square = Square()
 
 where `Triangle`, `Circle`, and `Square` all implement the `Shape` abstract base class.
 
-This is fine in many situations, but what if the classes need to be chosen at run-time?  For example, what if we want to generate shapes according to a random number generator or shapes are chosen by a user when prompted?  Let's assume the former.
+This is fine in many situations, but what if the classes need to be chosen at run-time?  For example, what if we want to generate shapes according to a random number generator or shapes are chosen by a user when prompted?  
 
 ### Alternative approach
 
-To handle this, we could modify the code above to look like:
+Let's assume the former for our example. To handle this, we could modify the code above to look like:
 
 ```python
 import numpy as np
 
-type = np.random.choice(['triangle', 'circle', 'square'])
+name = np.random.choice(['triangle', 'circle', 'square'])
 
-if type == 'triangle':
+if name == 'triangle':
     my_shape = Triangle()
-elif type == 'circle':
+elif name == 'circle':
     my_shape = Circle()
-elif type == 'square':
+elif name == 'square':
     my_shape = Square()
-...
+else:
+    print 'That's not a shape!'
 ```
 
-If we want to instantiate many objects (e.g. generate 10 random shapes) then we'd want to wrap this entire if-else chain into a single, reusable command.  That's what a **Factory** provides!
+If we want to instantiate many objects (e.g. generate 100 random shapes) then we'd want to wrap this entire if-else chain into a single, reusable command.  That's what a **Factory** provides!
 
 ### Using a Factory
 
 ```python
 class ShapeFactory:
-    def createShape(type):
-        if type == 'triangle':
+    def createShape(name):
+        if name == 'triangle':
             return Triangle()
-        elif type == 'circle':
+        elif name == 'circle':
             return Circle()
-        elif type == 'square':
+        elif name == 'square':
             return Square()
         else:
             print 'That's not a shape!'
@@ -58,7 +59,7 @@ Now, I can create many new `Shape` objects like so:
 ```python
 my_shape_factory = ShapeFactory()
 
-shape_names = np.random.choice(['triangle', 'circle', 'square'], 10)
+shape_names = np.random.choice(['triangle', 'circle', 'square'], size=100, replace=True)
 
 my_shapes = list()
 for name in shape_names:
@@ -67,25 +68,32 @@ for name in shape_names:
 
 And thus, the Factory centralizes all the code for instantiating these similar objects and makes it reusable.
 
-#### Useful for statistical models
+<!-- 
+#### Useful for statistics
 
-Factories become especially useful if there is large overhead in instantiating objects.  For example, suppose you have many statistical models to instantiate.  Then, we can start with an abstract base class:
+Factories become especially useful if there is large overhead in instantiating objects. 
+
+Suppose you have many statistical models to instantiate that all operate on the same dataset.  Then, we can start with an abstract base class:
 
 ```python
 class Classifier:
-    def __init__(self):
+    def __init__(self, df):
+        self.data = df
+        self.train_x, self.train_y, self.test_x, self.test_y = ... # random splitting
         self.params = None
-        
-    def train(self, train_x, train_y):
+    
+    def train(self):
         raise NotImplementedError
     
-    def predict(self, test_x):
+    def predict(self):
         raise NotImplementedError
 ```
 
-and define subclasses like `LogisticRegression` and `DecisionTree`.
+and define subclasses like `LogisticRegression` and `ClassificationTree`. 
 
+#### Unit testing
 
+-->
 
 <hr>
 
