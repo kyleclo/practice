@@ -46,13 +46,13 @@ while not stopping_condition:
 ...
 ```
 
-Sidenote: The Factory pattern is sometimes presented as the Factory Method pattern, which places the if-else chain in a **static method in the superclass** rather than in a separate Factory class.  Its use would look like:
+Sidenote: The Factory pattern is sometimes presented as the Factory Method pattern, which makes the `create()` function a **static method in the superclass** rather than a method in a separate Factory class.  Usage would look something like:
 
 ```python
 my_shape = Shape.create(name)
 ```
 
-This saves the user the need to instantiate a Factory object, but other than that, the two ways are effectively the same.
+In my opinion, the two ways are effectively the same.
 
 
 ### Usefulness for statisics
