@@ -1,6 +1,6 @@
-# Factory
+# Factory Method
 
-We use the Factory pattern when we want to **instantiate objects** from different classes that are grouped under a common superclass or interface.
+We use this design pattern when we want to **instantiate objects** from different classes that are grouped under a common superclass/interface.
 
 ### Usual approach
 
@@ -11,18 +11,15 @@ my_triangle = Triangle()
 my_circle = Circle()
 my_square = Square()
 ```
-
 where `Triangle`, `Circle`, and `Square` all implement the `Shape` abstract base class.
 
-This is fine in many situations, but what if the classes need to be **chosen at run-time**?  For example:
-- Shapes generated according to a random number generator
-- Shapes chosen depend on some input (e.g. user prompt or a read file)
+### Factories
 
-### Using a Factory
+Alternatively, we can define a `Factory` class that provides a `create()` method for instantiating new `Shape` objects:
 
 ```python
 class ShapeFactory:
-    def create(name):
+    def create(self, name):
         if name == 'triangle':
             return Triangle()
         elif name == 'circle':
@@ -34,62 +31,33 @@ class ShapeFactory:
             return None
 ```
 
-Now, I can create many new `Shape` objects through my instantiated `Factory`.  For example, the `main` function could look like this:
+For example, the `main` script using this Factory could look like:
 
 ```python
 my_shape_factory = ShapeFactory()
 
-my_shapes = list()
-while not stopping_condition:
+while True:
     name = ... #some way of choosing a shape (e.g. RNG or user input)
-    my_shapes.append(my_shape_factory.create(name))
-...
+    my_shape = my_shape_factory.create(name)
+    my_shape.display()
 ```
 
-Sidenote: The Factory pattern is sometimes presented as the Factory Method pattern, which makes the `create()` function a **static method in the superclass** rather than a method in a separate Factory class.  Usage would look something like:
+### Factory Method
+
+The Factory Method pattern is very similar to using a regular Factory, but defines the `create()` function as a **static method in the superclass** rather than a method in a separate Factory class.  
+
+For example, the `main` script using this static method would include the expression:
 
 ```python
 my_shape = Shape.create(name)
 ```
 
-In my opinion, the two ways are effectively the same.
 
+### Reasons to use the Factory Method pattern
 
-### Usefulness for statisics
+- Classes need to be **chosen at run-time** because they depend on some **external source** (e.g. user input, random number generator, read file, etc.)
 
-Suppose you want to instantiate model objects (e.g. `LogisticRegression`, `ClassificationTree`, etc.) grouped under a common superclass `Classifier`:
-
-- If there is a lot of code you want run during each model's instantiation, maybe a Factory is a good idea:
-```python
-
-```
-
-<!-- 
-#### Useful for statistics
-
-Factories become especially useful if there is large overhead in instantiating objects. 
-
-Suppose you have many statistical models to instantiate that all operate on the same dataset.  Then, we can start with an abstract base class:
-
-```python
-class Classifier:
-    def __init__(self, df):
-        self.data = df
-        self.train_x, self.train_y, self.test_x, self.test_y = ... # random splitting
-        self.params = None
-    
-    def train(self):
-        raise NotImplementedError
-    
-    def predict(self):
-        raise NotImplementedError
-```
-
-and define subclasses like `LogisticRegression` and `ClassificationTree`. 
-
-#### Unit testing
-
--->
+- We want to **centralize** the management of all instantiated objects (e.g. keep track of how many there are, parameters depend on what's been previously instantiated, share a common resource, etc.)
 
 <hr>
 
