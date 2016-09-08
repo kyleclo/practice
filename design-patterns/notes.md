@@ -1,6 +1,6 @@
 # Factory
 
-We use the Factory pattern when we want to instantiate objects from different classes that are grouped under a common superclass or interface.
+We use the Factory pattern when we want to **instantiate objects** from different classes that are grouped under a common superclass or interface.
 
 ### Usual approach
 
@@ -14,7 +14,7 @@ my_square = Square()
 
 where `Triangle`, `Circle`, and `Square` all implement the `Shape` abstract base class.
 
-This is fine in many situations, but what if the classes need to be chosen at run-time?  For example:
+This is fine in many situations, but what if the classes need to be **chosen at run-time**?  For example:
 - Shapes generated according to a random number generator
 - Shapes chosen depend on some input (e.g. user prompt or a read file)
 
@@ -41,11 +41,28 @@ my_shape_factory = ShapeFactory()
 
 my_shapes = list()
 while not stopping_condition:
-    name = ... #some method of choosing a shape (e.g. RNG or user input)
+    name = ... #some way of choosing a shape (e.g. RNG or user input)
     my_shapes.append(my_shape_factory.create(name))
 ...
 ```
 
+Sidenote: The Factory pattern is sometimes presented as the Factory Method pattern, which places the if-else chain in a **static method in the superclass** rather than in a separate Factory class.  Its use would look like:
+
+```python
+my_shape = Shape.create(name)
+```
+
+This saves the user the need to instantiate a Factory object, but other than that, the two ways are effectively the same.
+
+
+### Usefulness for statisics
+
+Suppose you want to instantiate model objects (e.g. `LogisticRegression`, `ClassificationTree`, etc.) grouped under a common superclass `Classifier`:
+
+- If there is a lot of code you want run during each model's instantiation, maybe a Factory is a good idea:
+```python
+
+```
 
 <!-- 
 #### Useful for statistics
