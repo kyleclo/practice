@@ -70,7 +70,7 @@ Then, in our example, the `main` script would instead use this static method for
 my_shape = Shape.create(name)
 ```
 
-Instead of a `create()` method containing an if-else block, another approach is to define separate static methods for each subclass.  For example, we could call `Shape.createTriangle()` or `Shape.createSquare()` to instantiate a `Triangle` or `Square`, respectively.
+Instead of a `create()` method containing an if-else block, another approach is to define separate static methods for each subclass.  For example, we could call `Shape.createTriangle()` or `Shape.createSquare()` to instantiate a `Triangle` or `Square`, respectively.  Note that this makes the code less flexible (see below).
 
 ### Reasons to use the Factory Method pattern
 
