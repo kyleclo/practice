@@ -11,7 +11,7 @@ my_triangle = Triangle()
 my_circle = Circle()
 my_square = Square()
 ```
-where `Triangle`, `Circle`, and `Square` all implement the `Shape` abstract base class.
+where `Triangle`, `Circle`, and `Square` all implement the `Shape` abstract base class with a `display()` method.
 
 ### Factories
 
@@ -44,20 +44,40 @@ while True:
 
 ### Factory Method
 
-The Factory Method pattern is very similar to using a regular Factory, but defines the `create()` function as a **static method in the superclass** rather than a method in a separate Factory class.  
+The Factory Method pattern is very similar to using a regular Factory, but defines the `create()` function as a **static method in the superclass** rather than a method in a separate Factory class:
 
-For example, the `main` script using this static method would include the expression:
+```python
+class Shape:
+    @staticmethod
+    def create(name):
+        if name == 'triangle':
+            return Triangle()
+        elif name == 'circle':
+            return Circle()
+        elif name == 'square':
+            return Square()
+        else:
+            print 'That's not a shape!'
+            return None
+    
+    def display():
+        raise NotImplementedError
+```
+
+Then, in our example, the `main` script would instead use this static method for instantiation:
 
 ```python
 my_shape = Shape.create(name)
 ```
 
+Instead of a `create()` method containing an if-else block, another approach is to define separate static methods for each subclass.  For example, we could call `Shape.createTriangle()` or `Shape.createSquare()` to instantiate a `Triangle` or `Square`, respectively.
 
 ### Reasons to use the Factory Method pattern
 
-- Classes need to be **chosen at run-time** because they depend on some **external source** (e.g. user input, random number generator, read file, etc.)
+- Classes need to be **chosen at run-time** because they depend on some **external source** (e.g. user input, random number generator, read file, etc.).  This works with the `create()` method containing an if-else block, and not the subclass-specific static methods.
 
-- We want to **centralize** the management of all instantiated objects (e.g. keep track of how many there are, parameters depend on what's been previously instantiated, share a common resource, etc.)
+- We want to **centralize** the management of all instantiated objects (e.g. keep track of how many there are, parameters depend on what's been previously instantiated, share a common resource, etc.).  There is also added benefit of having only one place to update code (the superclass) when adding new subclasses, and doing so won't impact existing code that instantiates objects (i.e. `Shape.create()` still works fine).
+
 
 <hr>
 
