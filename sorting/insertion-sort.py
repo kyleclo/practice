@@ -8,7 +8,7 @@ import numpy as np
 
 
 def insertion_sort(x):
-    for index_candidate in range(1, len(x)):
+    for index_candidate in range(2, len(x)):
 
         candidate = x[index_candidate]
         index_insert = index_candidate - 1
