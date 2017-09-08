@@ -26,6 +26,11 @@ def decimal_to_binary(integer):
         string = '1' + string
         return int(string)
 
+def decimal_to_binary_recursive(integer):
+    if integer < 2:
+        return str(integer % 2)
+    return decimal_to_binary_recursive(integer / 2) + str(integer % 2)
+
 
 def binary_to_decimal(binary):
     """

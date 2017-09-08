@@ -1,6 +1,6 @@
 """
 
-BFS on Directed/Undirected Graph represented by Adjacency List
+DFS on Directed/Undirected Graph represented by Adjacency List
 
 """
 
@@ -30,11 +30,13 @@ def dfs_util(query_value, index_start, graph, colors):
         if index_current == query_value:
             return True
 
-        colors[index_current] = 'black'
         for index_neighbor in graph[index_current]:
             if colors[index_neighbor] == 'white':
                 candidate_stack.append(index_neighbor)
                 colors[index_neighbor] = 'gray'
+
+	# black = visited
+	colors[index_current] = 'black'
 
     return False
 

@@ -31,15 +31,15 @@ def bfs_util(query_value, index_start, graph, colors):
         if index_current == query_value:
             return True
 
-        # black = visited
-        colors[index_current] = 'black'
         for index_neighbor in graph[index_current]:
             if colors[index_neighbor] == 'white':
                 candidate_queue.appendleft(index_neighbor)
                 colors[index_neighbor] = 'gray'
 
-    return False
+        # black = visited
+        colors[index_current] = 'black'
 
+    return False
 
 
 if __name__ == '__main__':
@@ -52,4 +52,5 @@ if __name__ == '__main__':
         print str(i) + ': ' + str(graph[i])
 
     print [bfs(query_value=i, graph=graph) for i in range(n + 1)]
+
 
